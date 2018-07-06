@@ -1,0 +1,53 @@
+#include <stdio.h>
+#include <string.h>
+#define MAXPOINT 32
+#define Dtatype int
+#define INF 0x3f3f3f3f
+int Point;
+Dtatype Far[MAXPOINT][MAXPOINT];
+
+
+//Dijkstra
+void Dijkstra(int start) {
+	int Marked[Point];
+	Datatype lenth[Point];
+	memset(Marked,0,sizeof(Marked));
+	memset(lenth,0x3f,sizeof(lenth));
+	Marked[start] = 1;
+	lenth[start] = 0;
+	int i,j;
+	int v = start;
+	for(i=0;i<Point-1;i++) {
+		for(j=0;j<Point;j++) {
+			if( Far[v][j]+lenth[v] < lenth[j] ) {
+				lenth[j] = Far[v][j]+lenth[v];
+			}
+		}
+		int mindex=v;
+		Datatype min=INF;
+		for(j=0;j<Point;j++) {
+			if(Marked[j]==0 && lenth[j]<min) {
+				min = lenth[j];
+				mindex = j;
+			}
+		}
+		v = mindex;
+		Marked[v] = 1;
+	}
+}
+
+
+//Floyd
+void Floyd() {
+	int i,j,k;
+	for(k=0;k<Point;k++) {
+		for(i=0;i<Point;i++) {
+			for(j=0;j<Point;j++) {
+				if(Far[i][j]>Far[i][k]+Far[k][j]) {
+					Far[i][j] = Far[i][k]+Far[k][j];
+				}
+			}
+		}
+	}
+}
+
