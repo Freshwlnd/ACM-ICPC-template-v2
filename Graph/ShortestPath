@@ -110,7 +110,7 @@ void SPFA(int start) {
     int v;
     while(Q.empty==0) {
         v = Queue_deque();
-        for(int i=0;i<MAXPOINT;i++) {
+        for(int i=0;i<Point;i++) {
             if(Far[v][i]+lenth[v]<lenth[i]) {
                 lenth[i] = Far[v][i]+lenth[v];
                 Queue_enque(i);
