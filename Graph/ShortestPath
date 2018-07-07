@@ -9,8 +9,8 @@ Dtatype Far[MAXPOINT][MAXPOINT];
 
 //Dijkstra
 void Dijkstra(int start) {
-	int Marked[Point];
-	Datatype lenth[Point];
+	int Marked[MAXPOINT];
+	Datatype lenth[MAXPOINT];
 	memset(Marked,0,sizeof(Marked));
 	memset(lenth,0x3f,sizeof(lenth));
 	Marked[start] = 1;
