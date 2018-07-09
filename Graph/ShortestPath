@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <string.h>
 #define MAXPOINT 32
-#define Dtatype int
+#define Datatype int
 #define INF 0x3f3f3f3f
 int Point;
-Dtatype Far[MAXPOINT][MAXPOINT];
+Datatype Far[MAXPOINT][MAXPOINT];
 
 
 //Dijkstra
