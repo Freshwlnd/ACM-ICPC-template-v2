@@ -1,5 +1,5 @@
 //input
-template<typename T>
+template <typename T>
 inline bool scan_d(T &x) {
 	char c; 
 	int sgn;
@@ -21,7 +21,7 @@ inline bool scan_d(T &x) {
 
 
 //output
-template<typename T>
+template <typename T>
 inline void print_d(T x) { 
     if (x > 9) {
         print_d(x / 10); 
