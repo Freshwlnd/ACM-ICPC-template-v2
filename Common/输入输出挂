@@ -18,6 +18,7 @@ inline bool scan_d(int &x) {
 }
 
 
+
 //output
 inline void print_d(int x) { 
     if (x > 9) {
