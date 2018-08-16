@@ -1,0 +1,18 @@
+typedef long long ll;
+
+ll pow(ll x,ll n,ll mod)
+{
+    ll res=1;
+	while(n>0)
+	{
+	   if(n%2==1)	
+	   {
+	   	 res=res*x;
+	   	 res=res%mod;
+	   }
+	   x=x*x;
+	   x=x%mod;
+	   n>>=1;
+	}
+	return res;	
+}
