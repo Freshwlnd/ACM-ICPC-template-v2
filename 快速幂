@@ -1,6 +1,6 @@
 typedef long long ll;
 
-ll pow(ll x,ll n,ll mod)
+ll pow(ll x,ll n)
 {
     ll res=1;
 	while(n>0)
