@@ -8,6 +8,10 @@
 #define fi first
 #define se second
 #define SZ(x) ((int)(x).size())
+#define mem0(a) memset(a, 0, sizeof(a))
+#define mem1(a) memset(a, -1, sizeof(a))
+#define meminf(a) memset(a, 0x3f, sizeof(a))
+#define mem(a, b) memset(a, b, sizeof(a))
 using namespace std;
 typedef long long ll;
 typedef unsigned long long ull;
