@@ -1,38 +1,33 @@
-#include <stdio.h>
-#include <string.h>
-#define MAXPOINT 32
-#define Datatype int
-#define INF 0x3f3f3f3f
-int Point;
-Datatype Far[MAXPOINT][MAXPOINT];
-
+const int maxn(1e4+7);
+const int INF(0x3f3f3f3f);
+int n;
 
 //Dijkstra
-void Dijkstra(int start) {
-	int Marked[MAXPOINT];
-	Datatype lenth[MAXPOINT];
-	memset(Marked,0,sizeof(Marked));
-	memset(lenth,0x3f,sizeof(lenth));
-	Marked[start] = 1;
-	lenth[start] = 0;
-	int i,j;
-	int v = start;
-	for(i=0;i<Point-1;i++) {
-		for(j=0;j<Point;j++) {
-			if( Far[v][j]+lenth[v] < lenth[j] ) {
-				lenth[j] = Far[v][j]+lenth[v];
+int mapp[maxn][maxn], lenth[maxn];
+bool visited[maxn];
+void dijkstra(int nowPos) {
+	mem(visited, 0);
+	mem(lenth, 0x3f);
+	visited[nowPos] = 1;
+	lenth[nowPos] = 0;
+	per(i,1,n) {
+		per(j, 1, n+1) {
+			if (mapp[nowPos][j] + lenth[nowPos] < lenth[j]) {
+				lenth[j] = mapp[nowPos][j] + lenth[nowPos];
 			}
 		}
-		int mindex=v;
-		Datatype min=INF;
-		for(j=0;j<Point;j++) {
-			if(Marked[j]==0 && lenth[j]<min) {
-				min = lenth[j];
-				mindex = j;
+		int minPos = nowPos, minn = INF;
+		per(j, 1, n+1) {
+			if (!visited[j] && lenth[j] < minn) {
+				minn = lenth[j];
+				minPos = j;
 			}
 		}
-		v = mindex;
-		Marked[v] = 1;
+		nowPos = minPos;
+		visited[nowPos] = 1;
+		if (nowPos == n) {
+			break;
+		}
 	}
 }
 
