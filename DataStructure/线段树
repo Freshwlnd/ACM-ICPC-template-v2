@@ -79,6 +79,7 @@ ll Query(int L, int R, int l, int r, int rt) {
 
 int n, L, C, R;
 int main() {
+	//若重复，则需清空lazy
 	//建树   
 	Build(1, n, 1);
 	//点更新  
