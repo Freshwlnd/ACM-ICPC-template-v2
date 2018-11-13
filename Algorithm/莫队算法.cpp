@@ -78,14 +78,15 @@ int main() {
     }
      //排序查询
     sort(q + 1, q + m + 1, cmp);
-     //莫队指针移动
+     //遍历查询
     int l = 1, r = 0;
     per(i, 1, m+1) {
+         //莫队指针移动
         while (l<q[i].l) {revise(l, -1); l++;}
         while (l>q[i].l) {revise(l - 1, 1); l--;}
         while (r<q[i].r) {revise(r + 1, 1); r++;}
         while (r>q[i].r) {revise(r, -1); r--;}
-        
+         //查询的答案设置
         if (q[i].l == q[i].r) { q[i].A = 0; q[i].B = 1; continue; }
         q[i].A = ans - (q[i].r - q[i].l + 1);
         q[i].B = 1LL * (q[i].r - q[i].l + 1)*(q[i].r - q[i].l);
@@ -93,7 +94,7 @@ int main() {
         q[i].A /= GCD;
         q[i].B /= GCD;
     }
-    
+    //复原查询顺序并输出
     sort(q + 1, q + m + 1, CMP);
     per(i, 1, m) { printf("%lld/%lld\n", q[i].A, q[i].B); }
     return 0;
