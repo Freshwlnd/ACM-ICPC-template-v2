@@ -64,19 +64,21 @@ void revise(int x, int add) {
     ans += S(sum[col[x]]); }
 
 int main() {
+     //读入+分块
     scanf("%d%d", &n, &m);
     unit = sqrt(n);
     per(i, 1, n+1) {
         scanf("%d", &col[i]);
         Be[i] = i / unit + 1;
     }
+     //离线读入查询
     per(i, 1, m+1) {
         scanf("%d%d", &q[i].l, &q[i].r);
         q[i].ID = i;
     }
-    
+     //排序查询
     sort(q + 1, q + m + 1, cmp);
-    
+     //莫队指针移动
     int l = 1, r = 0;
     per(i, 1, m+1) {
         while (l<q[i].l) {revise(l, -1); l++;}
