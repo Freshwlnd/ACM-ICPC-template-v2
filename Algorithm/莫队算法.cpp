@@ -30,7 +30,7 @@ ll S(ll x) { return x * x; }
 int n, m, col[N], unit, Be[N];
 ll sum[N], ans;
 bool cmp(Mo a, Mo b) { return Be[a.l] == Be[b.l] ? a.r<b.r : a.l<b.l; }
-bool CMP(Mo a, Mo b) { return a.ID<b.ID; };
+bool CMP(Mo a, Mo b) { return a.ID<b.ID; }
 void revise(int x, int add) {
     ans -= S(sum[col[x]]);
     sum[col[x]] += add;
