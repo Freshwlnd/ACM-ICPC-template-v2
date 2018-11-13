@@ -66,11 +66,11 @@ void revise(int x, int add) {
 int main() {
     scanf("%d%d", &n, &m);
     unit = sqrt(n);
-    per(i, 1, n) {
+    per(i, 1, n+1) {
         scanf("%d", &col[i]);
         Be[i] = i / unit + 1;
     }
-    per(i, 1, m) {
+    per(i, 1, m+1) {
         scanf("%d%d", &q[i].l, &q[i].r);
         q[i].ID = i;
     }
@@ -78,7 +78,7 @@ int main() {
     sort(q + 1, q + m + 1, cmp);
     
     int l = 1, r = 0;
-    per(i, 1, m) {
+    per(i, 1, m+1) {
         while (l<q[i].l) {revise(l, -1); l++;}
         while (l>q[i].l) {revise(l - 1, 1); l--;}
         while (r<q[i].r) {revise(r + 1, 1); r++;}
