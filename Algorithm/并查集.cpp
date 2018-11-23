@@ -1,3 +1,5 @@
+//并查集.cpp
+
 #include<bits/stdc++.h>
 #define per(i,a,b) for(int i=a;i<b;i++)
 #define rep(i,a,n) for (int i=n-1;i>=a;i--)
