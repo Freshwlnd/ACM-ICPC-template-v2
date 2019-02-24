@@ -13,7 +13,7 @@ void getnext()//获取next数组
 	int i,n,k;
 	n=strlen(ptr);
 	memset(next,0,sizeof(next));
-	k = next[0] = -1;
+	k = next[0] = 0;
 	for(i=1;i<n;i++) {
 		while(k>0 && ptr[k]!=ptr[i]) {
 			k=next[k];
