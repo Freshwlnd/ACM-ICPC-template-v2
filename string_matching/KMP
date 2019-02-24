@@ -21,7 +21,7 @@ void getnext()//获取next数组
 		if(ptr[k]==ptr[i]) {
 			k++;
 		}
-		next[i]=k;
+		next[i+1]=k;
 		//next表示的是“0～i-1”中，“最长前后缀”长度
 	}
 }
