@@ -2,49 +2,60 @@
 #include <cstring>
 #include <cstdio>
 using namespace std;
-const int N=100;
-char str[100],ptr[100];//父串str和子串ptr
-int next[100];
+
+const int maxlen=100;
+char str[maxlen],ptr[maxlen];//父串str和子串ptr
+int next[maxlen];
 string ans;
+
 void getnext()//获取next数组
 {
-    int i,n,k;
-    n=strlen(ptr);
-    memset(next,0,sizeof(next));
-    k=0;
-    for(i=1;i<n;i++)
-    {
-        while(k>0 && ptr[k]!=ptr[i])
-            k=next[k];
-        if(ptr[k]==ptr[i]) k++;
-        next[i+1]=k;
-	//next表示的是匹配长度
-    }
+	int i,n,k;
+	n=strlen(ptr);
+	memset(next,0,sizeof(next));
+	k=0;
+	for(i=1;i<n;i++) {
+		while(k>0 && ptr[k]!=ptr[i]) {
+			k=next[k];
+		}
+		if(ptr[k]==ptr[i]) {
+			k++;
+		}
+		next[i+1]=k;
+		//next表示的是“0～i-1”中，“最长前后缀”长度
+	}
 }
+
 int kmp(char *a,char *b)//匹配ab两串，a为父串
 {
-    int i=0,j=0;
-    int len1=strlen(a);
-    int len2=strlen(b);
-    getnext();
-    while(i<len1&&j<len2)
-    {
-        if(j==0||a[i]==b[j])
-        {   i++;j++;       }
-        else j=next[j+1];//到前一个匹配点
-    }
-    if(j>=len2)
-        return i-j;
-    else return -1;
+	int i=0,j=0;
+	int len1=strlen(a);
+	int len2=strlen(b);
+	getnext();
+	while(i<len1&&j<len2) {
+		if(a[i]==b[j]) {
+			i++;j++;
+		} else if(j==0) {
+			i++;
+		} else {
+			j=next[j];//到前一个匹配点
+		}
+	}
+	if(j>=len2) {
+		return i-j;
+	} else {
+		return -1;
+	}
 }
+
 int main(){
-	while( scanf( "%s%s", str, ptr ) )
-	{
-        int ans = kmp(str,ptr);
-        if(ans>=0)
-            printf( "%d\n", kmp( str,ptr ));
-        else
-            printf("Not find\n");
+	while( scanf( "%s%s", str, ptr)) {
+		int ans = kmp(str,ptr);
+		if(ans>=0) {
+			printf( "%d\n", kmp( str,ptr ));
+		} else {
+			printf("Not find\n");
+		}
 	}
 	return 0;
 }
