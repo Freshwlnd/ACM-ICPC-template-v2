@@ -6,7 +6,6 @@ using namespace std;
 const int maxlen=100;
 char str[maxlen],ptr[maxlen];//父串str和子串ptr
 int nextt[maxlen];
-string ans;
 
 void getnext()//获取next数组
 {
