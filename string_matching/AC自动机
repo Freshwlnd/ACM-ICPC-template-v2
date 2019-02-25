@@ -1,23 +1,19 @@
-#include<queue>
-#include<set>
-#include<cstdio>
-#include <iostream>
-#include<algorithm>
-#include<cstring>
-#include<cmath>
+#include <bits/stdc++.h>
 using namespace std;
+
 /*
     ac自动机
 */
-struct acnode{
+struct acnode {
     int sum;
-    acnode* next[26];
-    acnode* fail;
-    acnode(){
-        for(int i =0;i<26;i++)
-            next[i]=NULL;
-        fail= NULL;
-        sum=0;
+    acnode *next[26];
+    acnode *fail;
+
+    acnode() {
+        for (int i = 0; i < 26; i++)
+            next[i] = NULL;
+        fail = NULL;
+        sum = 0;
     }
 };
 acnode *root;
@@ -26,11 +22,11 @@ int cnt;
 //插入函数
 void Insert(char *s) {
     acnode *p = root;
-    for(int i = 0; s[i]; i++) {
+    for (int i = 0; s[i]; i++) {
         int x = s[i] - 'a';
-        if(p->next[x]==NULL) {
+        if (p->next[x] == NULL) {
             acnode *nn = new acnode();
-            p->next[x]=nn;
+            p->next[x] = nn;
         }
         p = p->next[x];
     }
@@ -38,24 +34,24 @@ void Insert(char *s) {
 }
 
 //获取fail指针，在插入结束之后使用
-void getfail(){
-    queue<acnode*> q;
+void getfail() {
+    queue<acnode *> q;
     q.push(root);
-    while(!q.empty()){
-        acnode* tem = q.front();
+    while (!q.empty()) {
+        acnode *tem = q.front();
         q.pop();
-        for(int i = 0;i<26;i++) {
-            if(tem->next[i]!=NULL) {
+        for (int i = 0; i < 26; i++) {
+            if (tem->next[i] != NULL) {
                 acnode *p;
                 p = tem->fail;
-                while(p!=NULL) {
-                    if(p->next[i]!=NULL){
+                while (p != NULL) {
+                    if (p->next[i] != NULL) {
                         tem->next[i]->fail = p->next[i];
                         break;
                     }
-                    p=p->fail;
+                    p = p->fail;
                 }
-                if(p==NULL) {
+                if (p == NULL) {
                     tem->next[i]->fail = root;
                 }
                 q.push(tem->next[i]);
@@ -68,42 +64,42 @@ void getfail(){
 void ac_automation(char *ch) {
     acnode *p = root;
     int len = strlen(ch);
-    for(int i = 0; i < len; i++) {
+    for (int i = 0; i < len; i++) {
         int x = ch[i] - 'a';
-        while(p->next[x]==NULL && p != root)//没匹配到，那么就找fail指针 
-        {
+        while (p->next[x] == NULL && p != root) {//没匹配到，那么就找fail指针
             p = p->fail;
         }
         p = p->next[x];
-        if(p==NULL) {
+        if (p == NULL) {
             p = root;
         }
         acnode *temp = p;
-        while(temp != root && temp->sum!=-1) {
-           cnt += temp->sum;
-           temp->sum = -1;
-           temp = temp->fail;
+        while (temp != root && temp->sum != -1) {
+            cnt += temp->sum;
+            temp->sum = -1;
+            temp = temp->fail;
         }
     }
 }
- 
+
 int main() {
-    cnt = 0;
-    int n;
-    cin >> n;
-    char c[101];
-    root = new acnode();
-    for(int i = 0 ;i < n;i++) {
-        scanf("%s",c);
-        Insert(c);
+    ios_base::sync_with_stdio(false);
+    int T, n;
+    cin >> T;
+    while (T--) {
+        cnt = 0;
+        root = new acnode();
+        cin >> n;
+        char c[57];
+        for (int i = 0; i < n; i++) {
+            cin >> c;
+            Insert(c);
+        }
+        getfail();
+        char str[1000007];
+        cin >> str;
+        ac_automation(str);
+        cout << cnt << endl;
     }
-    getfail();
-    int m ;
-    cin>> m;
-    for(int i = 0;i<m;i++){
-        scanf("%s",c);
-        ac_automation(c);
-    }
-    cout<<cnt<<endl;
     return 0;
 }
