@@ -5,23 +5,22 @@ using namespace std;
 
 const int maxlen=100;
 char str[maxlen],ptr[maxlen];//父串str和子串ptr
-int next[maxlen];
+int nextt[maxlen];
 string ans;
 
 void getnext()//获取next数组
 {
 	int i,n,k;
 	n=strlen(ptr);
-	memset(next,0,sizeof(next));
-	k = next[0] = 0;
+	k = nextt[0] = 0;
 	for(i=1;i<n;i++) {
 		while(k>0 && ptr[k]!=ptr[i]) {
-			k=next[k];
+			k=nextt[k];
 		}
 		if(ptr[k]==ptr[i]) {
 			k++;
 		}
-		next[i+1]=k;
+		nextt[i+1]=k;
 		//next表示的是“0～i-1”中，“最长前后缀”长度
 	}
 }
@@ -38,7 +37,7 @@ int kmp(char *a,char *b)//匹配ab两串，a为父串
 		} else if(j==0) {
 			i++;
 		} else {
-			j=next[j];//到前一个匹配点
+			j=nextt[j];//到前一个匹配点
 		}
 	}
 	if(j>=len2) {
