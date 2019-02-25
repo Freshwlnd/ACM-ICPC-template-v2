@@ -19,50 +19,38 @@ struct tnode{
     }
 };
 tnode *root;
- 
-tnode* newnode(){
-    tnode *p = new tnode;
-    for(int i =0;i<26;i++)
-        p->next[i]=NULL;
-    p->sum=0;
-    return p;
-}
+
 //插入函数
-void Insert(char *s)
-{
+void Insert(char *s) {
     tnode *p = root;
-    for(int i = 0 ; s[i] ; i++)
-    {
+    for(int i = 0 ; s[i] ; i++) {
         int x = s[i] - 'a';
-        if(p->next[x]==NULL)
-        {
-            tnode *nn=newnode();
-            for(int j=0;j<26;j++)
-                nn->next[j] = NULL;
-            nn->sum = 0;
+        if(p->next[x]==NULL) {
+            tnode *nn = new tnode();
             p->next[x]=nn;
         }
         p = p->next[x];
     }
     p->sum++;//这个单词终止啦
 }
+
 //匹配函数
-bool Compare(char *ch)
-{
+bool Compare(char *ch) {
     tnode *p = root;
     int len = strlen(ch);
-    for(int i = 0; i < len; i++)
-    {
+    for(int i = 0; i < len; i++) {
         int x = ch[i] - 'a';
         p = p->next[x];
-        if(p==NULL)
+        if(p==NULL) {
             return false;
-        if(i==len-1 && p->sum>0 ){
-            return true;
         }
+    }
+    if(p->sum>0 ){
+        return true;
     }
     return false;
 }
+
 void DELETE(tnode * &top){
     if(top==NULL)
     return;
@@ -70,6 +58,7 @@ void DELETE(tnode * &top){
         DELETE(top->next[i]);
     delete top;
 }
+
 int main()
 {
     int n,m;
