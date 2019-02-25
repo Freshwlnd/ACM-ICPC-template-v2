@@ -48,7 +48,7 @@ void getfail(){
             if(tem->next[i]!=NULL) {
                 acnode *p;
                 p = tem->fail;
-                while(p!=NULL) {//xuyaojianhua
+                while(p!=NULL) {
                     if(p->next[i]!=NULL){
                         tem->next[i]->fail = p->next[i];
                         break;
@@ -70,36 +70,30 @@ void ac_automation(char *ch) {
     int len = strlen(ch);
     for(int i = 0; i < len; i++) {
         int x = ch[i] - 'a';
-        while(p->next[x]==NULL && p != root)//没匹配到，那么就找fail指针。
-            p = p->fail;
-        p = p->next[x];
-        if(!p)
-            p = root;
-        acnode *temp = p;
-        while(temp != root)
+        while(p->next[x]==NULL && p != root)//没匹配到，那么就找fail指针 
         {
-           if(temp->sum >= 0)
-            /*
-            在这里已经匹配成功了，执行想执行的操作即可，怎么改看题目需求+
-            */
-           {
-               cnt += temp->sum;
-               temp->sum = -1;
-           }
-           else break;
+            p = p->fail;
+        }
+        p = p->next[x];
+        if(p==NULL) {
+            p = root;
+        }
+        acnode *temp = p;
+        while(temp != root && temp->sum!=-1) {
+           cnt += temp->sum;
+           temp->sum = -1;
            temp = temp->fail;
         }
     }
 }
  
-int main()
-{
+int main() {
     cnt = 0;
     int n;
-    cin>>n;
+    cin >> n;
     char c[101];
-    root = newnode();
-    for(int i = 0 ;i < n;i++){
+    root = new acnode();
+    for(int i = 0 ;i < n;i++) {
         scanf("%s",c);
         Insert(c);
     }
