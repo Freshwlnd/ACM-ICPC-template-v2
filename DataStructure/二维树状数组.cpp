@@ -1,3 +1,5 @@
+//例题：hdu 1892
+
 #include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;
@@ -8,35 +10,24 @@ int book[maxn][maxn];
 int books[maxn][maxn];
 int T, Q;
 char type;
-int x1, x2, Y1, y2, n1;
+int X1, X2, Y1, Y2, n1;
 
-inline int lowbit(int x) {
-    return x&(-x);
-}
+inline int lowbit(int x) { return x&(-x); }
 
-void change(int x, int y, int num) {
-    for (int tx = x; tx < maxn;tx+=lowbit(tx)) {
-        for (int ty = y; ty < maxn; ty += lowbit(ty)) {
-            books[tx][ty] += num;
-        }
-    }
-}
+void build_tree();  //建树
+void change(int x, int y, int num); //在[x][y]上加num，更新树
+inline int dex(int x1, int y1, int x2, int y2); //计算[x1][y1],[x2][y2]矩阵的和
+int query(int x, int y);    //计算[0][0],[x][y]矩阵的和
+void ask(); //处理题目要求
+/*
+ * S x1 y1 x2 y2:   sum （[x1][y1],[x2][y2]矩阵和）
+ * A x1 y1 n1:      add （[x1][y1]加n1）
+ * D x1 y1 n1:      delete （[x1][y1]减n1，减为负数则置为0）
+ * M x1 y1 x2 y2 n1:move （从[x1][y1]移动n1到[x2][y2]，减为负数则置为0）
+ */
 
-int query(int x, int y) {
-    int result = 0;
-    for (; x > 0; x -= lowbit(x)) {
-        for (int i = y; i > 0; i -= lowbit(i)) {
-            result += books[x][i];
-        }
-    }
-    return result;
-}
-//需判断x、y<=0情况
 
-inline int dex(int x1, int y1, int x2, int y2) {
-    return query(x2, y2) - query(x2, y1 - 1) - query(x1 - 1, y2) + query(x1 - 1, Y1 - 1);
-}
-
+//建树
 void build_tree() {
     memset(books, 0, sizeof(books));
     for(int i=1; i < maxn; i++) {
@@ -47,43 +38,75 @@ void build_tree() {
     }
 }
 
+//节点[x][y]增加num后，更新树
+void change(int x, int y, int num) {
+    for (int tx = x; tx < maxn;tx+=lowbit(tx)) {
+        for (int ty = y; ty < maxn; ty += lowbit(ty)) {
+            books[tx][ty] += num;
+        }
+    }
+}
+
+//处理题目要求
+/*
+ * S x1 y1 x2 y2:       sum （[x1][y1],[x2][y2]矩阵和）
+ * A x1 y1 n1:          add （[x1][y1]加n1）
+ * D x1 y1 n1:          delete （[x1][y1]减n1，减为负数则置为0）
+ * M x1 y1 x2 y2 n1:    move （从[x1][y1]移动n1到[x2][y2]，减为负数则置为0）
+ */
 void ask() {
     cin >> type;
     switch (type) {
         case 'S': {
-            cin >> x1 >> Y1 >> x2 >> y2;
-            ++x1;++Y1;++x2;++y2;
-            if(x1>x2) { swap(x1, x2); }
-            if(Y1>y2) { swap(Y1, y2); }
-            cout << dex(x1, Y1, x2, y2) << endl;
+            cin >> X1 >> Y1 >> X2 >> Y2;
+            ++X1;++Y1;++X2;++Y2;
+            if(X1>X2) { swap(X1, X2); }
+            if(Y1>Y2) { swap(Y1, Y2); }
+            cout << dex(X1, Y1, X2, Y2) << endl;
         }
             break;
         case 'A': {
-            cin >> x1 >> Y1 >> n1;
-            ++x1;++Y1;
-            book[x1][Y1] += n1;
-            change(x1, Y1, n1);
+            cin >> X1 >> Y1 >> n1;
+            ++X1;++Y1;
+            book[X1][Y1] += n1;
+            change(X1, Y1, n1);
         }
             break;
         case 'D': {
-            cin >> x1 >> Y1 >> n1;
-            ++x1;++Y1;
-            n1 = min(n1, book[x1][Y1]);
-            book[x1][Y1] -= n1;
-            change(x1, Y1, -n1);
+            cin >> X1 >> Y1 >> n1;
+            ++X1;++Y1;
+            n1 = min(n1, book[X1][Y1]);
+            book[X1][Y1] -= n1;
+            change(X1, Y1, -n1);
         }
             break;
         case 'M': {
-            cin >> x1 >> Y1 >> x2 >> y2 >> n1;
-            ++x1;++Y1;++x2;++y2;
-            n1 = min(n1, book[x1][Y1]);
-            book[x1][Y1] -= n1;
-            book[x2][y2] += n1;
-            change(x1, Y1, -n1);
-            change(x2, y2, n1);
+            cin >> X1 >> Y1 >> X2 >> Y2 >> n1;
+            ++X1;++Y1;++X2;++Y2;
+            n1 = min(n1, book[X1][Y1]);
+            book[X1][Y1] -= n1;
+            book[X2][Y2] += n1;
+            change(X1, Y1, -n1);
+            change(X2, Y2, n1);
         }
             break;
     }
+}
+
+//计算[0][0],[x][y]矩阵的和
+int query(int x, int y) {
+    int result = 0;
+    for (; x > 0; x -= lowbit(x)) {
+        for (int i = y; i > 0; i -= lowbit(i)) {
+            result += books[x][i];
+        }
+    }
+    return result;
+}
+
+//计算[x1][y1],[x2][y2]矩阵的和
+inline int dex(int x1, int y1, int x2, int y2) {
+    return query(x2, y2) - query(x2, y1 - 1) - query(x1 - 1, y2) + query(x1 - 1, Y1 - 1);
 }
 
 int main() {
