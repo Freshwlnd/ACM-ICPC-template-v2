@@ -9,14 +9,12 @@ void extand(int x) {
     mx[np] = mx[p] + 1;last = np;
     while(p && !tr[p][x]) tr[p][x] = np , p = par[p];
     if(!p) par[np] = 1;
-    else
-    {
+    else {
         int q = tr[p][x];
         if(mx[q] == mx[p] + 1) par[np] = q;
-        else
-        {
+        else {
             int nq = ++cnt;mx[nq] = mx[p] + 1;
-            rep(i,0,25) tr[nq][i] = tr[q][i];
+            per(i,0,25) tr[nq][i] = tr[q][i];
             par[nq] = par[q];par[q] = par[np] = nq;
             while(p && tr[p][x] == q) tr[p][x] = nq , p = par[p]; 
         }
@@ -26,10 +24,10 @@ void extand(int x) {
 
 int tmp[1001000] , id[2001000];
 void topsort() {
-    rep(i,1,cnt) tmp[mx[i]]++;
-    rep(i,1,len) tmp[i] += tmp[i-1];
-    rep(i,1,cnt) id[tmp[mx[i]]--] = i;
-    repp(i,cnt,1) R[par[id[i]]] += R[id[i]];
+    per(i,1,cnt) tmp[mx[i]]++;
+    per(i,1,len) tmp[i] += tmp[i-1];
+    per(i,1,cnt) id[tmp[mx[i]]--] = i;
+    rep(i,1,cnt) R[par[id[i]]] += R[id[i]];
 }
 
 int main() {
