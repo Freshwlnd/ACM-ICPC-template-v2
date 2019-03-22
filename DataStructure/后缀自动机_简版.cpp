@@ -22,12 +22,12 @@ void extand(int x) {
     return;
 }
 
-int tmp[1001000] , id[2001000];
+int tmp[MAXL] , id[2*MAXL];
 void topsort() {
-    per(i,1,cnt) tmp[mx[i]]++;
+    per(i,1,cnt+1) tmp[mx[i]]++;
     per(i,1,len) tmp[i] += tmp[i-1];
-    per(i,1,cnt) id[tmp[mx[i]]--] = i;
-    rep(i,1,cnt) R[par[id[i]]] += R[id[i]];
+    per(i,1,cnt+1) id[tmp[mx[i]]--] = i;
+    rep(i,1,cnt+1) R[par[id[i]]] += R[id[i]];
 }
 
 int main() {
