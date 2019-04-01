@@ -1,9 +1,10 @@
-#include<bits/stdc++.h>
-#define per(i,a,b) for(int i=a;i<b;i++)
-#define rep(i,a,n) for (int i=n-1;i>=a;i--)
-#define mem(a,b) memset(a,b,sizeof(a))
-#define ll long long 
-using namespace std; 
+//树状数组一般适用于三类问题：
+//1，修改一个点求一个区间
+//2，修改一个区间求一个点
+//3，求逆序列对
+//用树状数组能够解决的问题，用线段树肯定能够解决，反之则不一定。
+//树状数组较为节省空间，实现要比线段树要容易得多，而且在处理某些问题的时候使用树状数组效率反而会高得多。 
+//线段树擅长处理横向区间的问题，树状数组擅长处理纵向区间的问题。
 
 const int MAXN = 50010;
 int a[MAXN], ans[MAXN << 2], lazy[MAXN << 2];
