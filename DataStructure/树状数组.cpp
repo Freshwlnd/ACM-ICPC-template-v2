@@ -6,13 +6,6 @@
 //树状数组较为节省空间，实现要比线段树要容易得多，而且在处理某些问题的时候使用树状数组效率反而会高得多。 
 //线段树擅长处理横向区间的问题，树状数组擅长处理纵向区间的问题。
 
-#include<bits/stdc++.h>
-#define per(i,a,b) for(int i=a;i<b;i++)
-#define rep(i,a,n) for (int i=n-1;i>=a;i--)
-#define mem(a,b) memset(a,b,sizeof(a))
-#define ll long long 
-using namespace std; 
-
 const int sizze = 100111;
 int c[sizze], n;
 
