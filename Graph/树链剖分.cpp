@@ -64,5 +64,7 @@ int sum(int x,int y)
     return ans;
 }
 
-//进入
-dfs1(root,0,1);
+int main() {
+    //进入
+    dfs1(root,0,1);
+}
