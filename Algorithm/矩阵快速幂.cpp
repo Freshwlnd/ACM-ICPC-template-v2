@@ -1,4 +1,4 @@
-//矩阵快速幂（待修改）.cpp
+//矩阵快速幂.cpp
 const int MAXN(9);
 int Size;
 
