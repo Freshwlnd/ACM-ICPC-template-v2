@@ -25,7 +25,7 @@ int tr[2*MAXL][26] , par[2*MAXL] , mx[2*MAXL] , cnt , last;
 ll ans[2*MAXL], R[2*MAXL];
 int len;
 
-void extand(int x) {
+void extand(int x) {    //节点[1,cnt]
     int np = ++cnt , p = last;R[np] = 1;
     mx[np] = mx[p] + 1;last = np;
     while(p && !tr[p][x]) tr[p][x] = np , p = par[p];
@@ -53,7 +53,7 @@ void topsort() {
 
 int main() {
     scanf("%s",s+1);
-    len = strlen(s+1)+1;cnt = last = 1;
+    len = strlen(s+1)+1;cnt = last = 1; //字符串[1,len)
     per(i,1,len) extand(s[i]-'a');
     //计算每个长度的子串出现最多的次数
     topsort();  //拓扑排序
