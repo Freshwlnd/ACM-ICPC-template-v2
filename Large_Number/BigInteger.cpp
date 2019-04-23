@@ -56,11 +56,15 @@ struct BigInteger {
             if (g == 0 && i >= s.size() && i >= b.s.size()) break;
             g += s[i];
             if (i < b.s.size()) g -= b.s[i];
-            c.s.push_back((g + BASE) % BASE);
+            c.s.push_back((g+BASE) % BASE);
+            if(g<0) g -= BASE;
             g /= BASE;
         }
-        if (!c.s[c.s.size() - 1]) {
+        while (c.s.size()>0 && !c.s[c.s.size() - 1]) {
             c.s.pop_back();
+        }
+        if(c.s.size()==0) {
+            c.s.push_back(0);
         }
         return c;
     }
@@ -103,9 +107,12 @@ struct BigInteger {
     }
     bool operator > (const BigInteger &b) const { return b < *this; }
     bool operator <= (const BigInteger &b) const { return !(b < *this); }
-    bool operator >= (const BigInteger &b) const { return !(*this < b); }
+    bool operator >= (const BigInteger &b) const { return !(*this < b);}
     bool operator != (const BigInteger &b) const { return b < *this || *this < b; }
     bool operator == (const BigInteger &b) const { return !(b < *this) && !(*this < b); }
+    int trToInt() {
+        return s[0];
+    }
 };
 
 ostream& operator << (ostream &out, const BigInteger &x) {
