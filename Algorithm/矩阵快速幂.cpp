@@ -25,13 +25,13 @@ struct Mat {
         }
         return r;
     }
-    Mat qpow(Mat& r, ll m) {
+    Mat qpow(ll m) {
         Mat ans;
         ans.init1();
         while (m) {
             if (m & 1)
-                ans = ans * r;
-            r = r * r;
+                ans = ans * (*this);
+            (*this) = (*this) * (*this);
             m >>= 1;
         }
         return ans;
