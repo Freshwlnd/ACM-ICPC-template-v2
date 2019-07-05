@@ -4,7 +4,7 @@ using namespace std;
 const int MAXN(2e5+7);  //两倍边数
 const int INF(0x3fff);
 
-int N, M, S, T;
+int N, M, S, T;		//bfs用到N，需设为点总数
 int marked[MAXN];   //若未访问则记为0，访问过则记为其上一个点
 int path[MAXN];
 int flow[MAXN];     //记录到第i个点的水流量
