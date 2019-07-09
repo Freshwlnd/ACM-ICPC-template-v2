@@ -17,7 +17,7 @@ public:
 
 public:
     Dinic(int Nn=0, int Ss=0, int Tt=0): N(Nn), S(Ss), T(Tt) {
-        head.resize(N+1);
+        head.assign(N+1, 0);
         depth.resize(N+1);
         Val.resize(2);
         To.resize(2);
@@ -37,9 +37,9 @@ public:
         queue<int> qq;
         qq.push(S);
         vector<int> marked;
-        marked.resize(N+1);
+        marked.assign(N+1, 0);
         marked[S] = 1;
-        depth[T] = depth[S] = 0; 
+        marked[T] = depth[S] = 0; 
         int tmp;
 
         while(!qq.empty()) {
